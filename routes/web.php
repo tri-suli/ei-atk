@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Dashboard\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,3 +16,4 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', HomeController::class);
+Route::get('/', [LoginController::class, 'index']);

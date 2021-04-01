@@ -8,6 +8,16 @@ use App\Http\Controllers\Controller;
 class HomeController extends Controller
 {
     /**
+     * Create controller instance and setup middleware
+     * 
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('auth');    
+    }
+
+    /**
      * Handle the incoming request.
      *
      * @param  \Illuminate\Http\Request  $request
