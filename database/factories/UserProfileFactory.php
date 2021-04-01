@@ -1,0 +1,32 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\User;
+use App\Models\UserProfile;
+use Illuminate\Database\Eloquent\Factories\Factory;
+
+class UserProfileFactory extends Factory
+{
+    /**
+     * The name of the factory's corresponding model.
+     *
+     * @var string
+     */
+    protected $model = UserProfile::class;
+
+    /**
+     * Define the model's default state.
+     *
+     * @return array
+     */
+    public function definition()
+    {
+        return [
+            'role' => 'admin',
+            'user_id' => User::factory(),
+            'avatar_path' => $this->faker->url,
+            'fullname' => "{$this->faker->firstName} {$this->faker->lastName}",
+        ];
+    }
+}
