@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Dashboard\HomeController;
+use App\Http\Controllers\Dashboard\ItemTypeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,3 +22,5 @@ Route::post('login', [LoginController::class, 'read']);
 Route::get('logout', [LoginController::class, 'destroy']);
 
 Route::get('home', HomeController::class)->name('home');
+
+Route::get('item-types', [ItemTypeController::class, 'index'])->name('itypes');
