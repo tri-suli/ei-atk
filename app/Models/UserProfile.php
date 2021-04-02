@@ -25,7 +25,7 @@ class UserProfile extends Model
      *
      * @return string
      */
-    public function getAvatarAttributes(): string
+    public function getAvatarAttribute(): string
     {
         return asset($this->avatar_path);
     }
@@ -33,11 +33,12 @@ class UserProfile extends Model
     /**
      * Get formated user's fullname
      *
+     * @param  string $value
      * @return string
      */
-    public function getFullnameAttributes(): string
+    public function getFullnameAttribute(string $value): string
     {
-        return Str::title($this->fullname);
+        return Str::title($value);
     }
 
     /**

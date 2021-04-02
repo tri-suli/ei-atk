@@ -3,7 +3,7 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-use App\Repositories\RepositoryService as EloquentRepository;
+use App\Repositories\RepositoryLoader as EloquentRepository;
 
 class AppServiceProvider extends ServiceProvider
 {

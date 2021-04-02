@@ -21,7 +21,7 @@ class UserProfileTest extends TestCase
             'avatar_path' => 'avatar.png'
         ]);
 
-        $this->assertSame("$domain/avatar.png", $profile->getAvatarAttributes());
+        $this->assertSame("$domain/avatar.png", $profile->getAvatarAttribute());
     }
 
     /**
@@ -37,7 +37,7 @@ class UserProfileTest extends TestCase
             'fullname' => 'john doe'
         ]);
 
-        $this->assertSame('John Doe', $profile->getFullnameAttributes());
+        $this->assertSame('John Doe', $profile->getFullNameAttribute($profile->fullname));
     }
 
      /**
@@ -50,10 +50,11 @@ class UserProfileTest extends TestCase
     public function profile_is_belongs_to_user(): void
     {
         $user = User::factory()->create();
-        $profile = UserProfile::factory()->create(['user_id' => $user]);
+        $profile = UserProfile::factory()->create(['user_id' => $user,'fullname' => 'name']);
 
         $profileOwner = $profile->user()->first();
         
+        $this->assertSame('Name', $profile->fullname);
         $this->assertSame($user->username, $profileOwner->username);
     }
 }
