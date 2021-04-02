@@ -15,5 +15,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
+
 Route::get('/', [LoginController::class, 'index']);
+Route::post('login', [LoginController::class, 'read']);
