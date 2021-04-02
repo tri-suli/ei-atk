@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\Dashboard\HomeController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Dashboard\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,4 +15,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', HomeController::class);
+Route::get('/', HomeController::class)->name('home');
+
+Route::get('/', [LoginController::class, 'index']);
+Route::post('login', [LoginController::class, 'read']);
