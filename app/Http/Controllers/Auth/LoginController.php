@@ -8,6 +8,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('guest')->except('destroy');
+    }
+
     /**
      * Show page to the browser's
      *
@@ -27,18 +32,32 @@ class LoginController extends Controller
      */
     public function read(Request $request)
     {
-        $credentials = ['password' => $request->password];
-
-        if (filter_var($request->username, FILTER_VALIDATE_EMAIL)) {
-            $credentials['email'] = $request->username;
-        } else {
-            $credentials['name'] = $request->username;
-        }
+        $credentials = [
+            'password' => $request->password,
+            filter_var($request->username, FILTER_VALIDATE_EMAIL) ? 'email' : 'name' => $request->username,
+        ];
 
         if (Auth::attempt($credentials)) {
-            return redirect()->intended();
+            $request->session()->regenerate();
+            return redirect()->intended('home');
         }
 
         return redirect()->back()->with('error', 'Invalid Credentials');
+    }
+
+    /**
+     * Logged out user from application
+     *
+     * @param  Request  $request
+     * @return void
+     */
+    public function destroy(Request $request)
+    {
+        Auth::logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+    
+        return redirect('/');
     }
 }

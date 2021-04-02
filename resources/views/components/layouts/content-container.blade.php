@@ -6,4 +6,4 @@
             {{ $slot }}
         </div>
     </div>
-@endsection
+@stop
