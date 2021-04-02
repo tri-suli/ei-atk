@@ -3,10 +3,10 @@
         @csrf
         <h1>Login Form</h1>
         <div>
-            <input type="text" class="form-control" placeholder="Username/Email" />
+            <input name="username" type="text" class="form-control" placeholder="Username/Email" />
         </div>
         <div>
-            <input type="password" class="form-control" placeholder="Password" />
+            <input name="password" type="password" class="form-control" placeholder="Password" />
         </div>
         <div>
             <button type="submit" class="btn btn-default submit">Log in</button>
