@@ -50,7 +50,7 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            
+                            <x-form.item-type-form />
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -63,6 +63,9 @@
     </x-layouts.panel-container>
     @push('custom-styles')
         <style>
+            .modal {
+                top: 100px;
+            }
             .actions-button a {
                 color: #efefef !important;
                 font-weight: 600;
