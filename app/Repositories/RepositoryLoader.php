@@ -2,10 +2,13 @@
 
 namespace App\Repositories;
 
-use App\Repositories\Contracts\UserRepository;
-use App\Repositories\Eloquent\EloquentUserRepository;
+use App\Repositories\Contracts\Eloquent\UserRepository;
+use App\Repositories\Contracts\Eloquent\ItemTypeRepository;
 
-class RepositoryService
+use App\Repositories\Eloquent\EloquentUserRepository;
+use App\Repositories\Eloquent\EloquentItemTypeRepository;
+
+class RepositoryLoader
 {
     /**
      * Binding all available repositories into the
@@ -30,7 +33,8 @@ class RepositoryService
     public function repositories(): array
     {
         return [
-            UserRepository::class => EloquentUserRepository::class
+            UserRepository::class => EloquentUserRepository::class,
+            ItemTypeRepository::class => EloquentItemTypeRepository::class
         ];
     }
 }
