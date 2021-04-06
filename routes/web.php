@@ -24,4 +24,5 @@ Route::get('logout', [LoginController::class, 'destroy']);
 Route::get('home', HomeController::class)->name('home');
 
 Route::post('item-types', [ItemTypeController::class, 'store']);
+Route::put('item-types/{id}', [ItemTypeController::class, 'update']);
 Route::get('item-types', [ItemTypeController::class, 'index'])->name('itypes');

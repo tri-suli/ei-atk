@@ -34,7 +34,7 @@ class ItemTypeController extends Controller
     public function index()
     {
         return view('pages.item-type', [
-            'title' => 'Item Type',
+            'title' => 'Tipe Barang',
             'collection' => $this->itemType->all()
         ]);
     }
@@ -50,5 +50,19 @@ class ItemTypeController extends Controller
         $this->itemType->create($request->except('_token'));
 
         return redirect()->back()->with('message', "Data berhasil ditambahkan.");
+    }
+
+     /**
+     * Update existing item types record
+     *
+     * @param   StoringItemTypesRequest $request
+     * @param   int $id
+     * @return  \Illuminate\Http\Response
+     */
+    public function update(StoringItemTypesRequest $request, int $id)
+    {
+        $this->itemType->update($id, $request->except('_method','_token'));
+
+        return redirect()->back()->with('message', "Data berhasil diperbarui.");
     }
 }
