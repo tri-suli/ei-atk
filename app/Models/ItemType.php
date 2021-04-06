@@ -4,13 +4,14 @@ namespace App\Models;
 
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Contracts\ItemTypeContract as ModelContract;
 
 class ItemType extends Model implements ModelContract
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     /**
      * keys of item types
@@ -40,7 +41,7 @@ class ItemType extends Model implements ModelContract
      * @var array
      */
     protected $fillable = [
-        'name',
+        'added_by', 'name',
     ];
 
     /**

@@ -1,8 +1,19 @@
-<form action="{{ $action }}" method="POST" id="demo-form" data-parsley-validate="" novalidate="">
+<form action="{{ url($action) }}" method="POST" id="item-type-form" data-parsley-validate="" novalidate="">
     @csrf
-    <label for="fullname">Nama Tipe</label>
-    <input type="text" id="fullname" class="form-control parsley-error" name="fullname" required="" data-parsley-id="20">
-    <ul class="parsley-errors-list filled" id="parsley-id-20">
-        <li class="parsley-required">This value is required.</li>
-    </ul>
+    {{ $slot }}
+    <label for="itemtype">Nama Tipe</label>
+    <input
+        type="text"
+        id="itemtype"
+        name="name"
+        data-parsley-id="20"
+        class="form-control {{ $errors->any() ? 'parsley-error' : '' }}"
+    />
+    @if ($errors->any())
+        <ul class="parsley-errors-list filled" id="parsley-id-20">
+            @foreach ($errors->all() as $error)
+                <li class="parsley-required">{{ $error }}</li>
+            @endforeach
+        </ul>
+    @endif
 </form>
