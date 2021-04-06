@@ -8,6 +8,14 @@
             </li>
         </x-slot>
         <x-slot name="content">
+            @if (session()->has('message'))
+                <div class="alert alert-success alert-dismissible" role="alert">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                    <strong>Sukses!</strong> {{ session('message') }}.
+                </div>
+            @endif
             <table class="table table-hover">
                 <thead>
                     <tr>
@@ -40,7 +48,7 @@
                     @endforeach
                 </tbody>
             </table>
-            <div class="modal fade modal-itypes" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
+            <div id="modal-itypes" class="modal fade modal-itypes" tabindex="-1" role="dialog" style="display: none;" aria-hidden="true">
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -50,11 +58,11 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <x-form.item-type-form />
+                            <x-form.item-type-form action="item-types" />
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary">Simpan</button>
+                            <button id="create" type="button" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -72,4 +80,22 @@
             }
         </style>
     @endpush
+    @push('custom-scripts')
+        <script>
+            $('#create').click(function (e) {
+                $('form').submit()
+            });
+            $('#modal-itypes').on('hidden.bs.modal', function (e) {
+                $('#parsley-id-20').remove();
+                $('#itemtype').removeClass('parsley-error');
+            })
+        </script>
+    @endpush
+    @if ($errors->any())
+        @push('custom-scripts')
+            <script>
+                $('#modal-itypes').modal('show');
+            </script>
+        @endpush
+    @endif
 </x-layouts.content-container>

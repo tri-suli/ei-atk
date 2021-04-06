@@ -20,6 +20,19 @@ class EloquentItemTypeRepository extends BaseRepository implements ItemTypeRepos
     }
 
     /**
+     * Storing new item types into database
+     *
+     * @param   array $attributes
+     * @return  ItemType
+     */
+    public function create(array $attributes): ItemType
+    {
+        $attributes['added_by'] = auth()->user()->id;
+
+        return parent::create($attributes);
+    }
+
+    /**
      * Get item types by user id's
      *
      * @param  int $userId

@@ -14,23 +14,23 @@ class ItemTypeForm extends Component
     public $name;
 
     /**
-     * Check wheter the form is using to handle create or update
+     * Action url
      *
-     * @var bool
+     * @var string
      */
-    public $updating;
+    public $action;
 
     /**
      * Create a new component instance.
      *
      * @param  string $name
-     * @param  bool   $updating
+     * @param  string $action
      * @return void
      */
-    public function __construct(string $name = null, bool $updating = false)
+    public function __construct(string $name = null, string $action)
     {
         $this->name = $name;
-        $this->updating = $updating;
+        $this->action = $action;
     }
 
     /**
@@ -40,8 +40,6 @@ class ItemTypeForm extends Component
      */
     public function render()
     {
-        return view('components.form.item-type-form', [
-            'action' => 'action'
-        ]);
+        return view('components.form.item-type-form');
     }
 }
