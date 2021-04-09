@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use App\Models\Contracts\ItemTypeContract as ModelContract;
@@ -45,16 +46,6 @@ class ItemType extends Model implements ModelContract
     ];
 
     /**
-     * Get related user's
-     *
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class, 'added_by');
-    }
-
-    /**
      * Get formated item types name's
      *
      * @param  string $value
@@ -63,5 +54,25 @@ class ItemType extends Model implements ModelContract
     public function getNameAttribute(string $value): string
     {
         return Str::title($value);
+    }
+
+    /**
+     * Get related item's
+     *
+     * @return HasMany
+     */
+    public function items(): HasMany
+    {
+        return $this->hasMany(Item::class);
+    }
+
+    /**
+     * Get related user's
+     *
+     * @return BelongsTo
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class, 'added_by');
     }
 }
