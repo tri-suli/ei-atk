@@ -36,7 +36,7 @@
                                     <a type="button" class="btn btn-round btn-info">
                                         <i class="fa fa-bars"></i> Detail
                                     </a>
-                                    <a type="button" class="btn btn-round btn-warning">
+                                    <a data-id="{{ $item->id }}" data-value="{{ $item->name }}" type="button" class="btn btn-round btn-warning">
                                         <i class="fa fa-edit"></i> Edit
                                     </a>
                                     <a type="button" class="btn btn-round btn-danger">
@@ -52,17 +52,16 @@
                 <div class="modal-dialog modal-md">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h4 class="modal-title" id="myModalLabel2">Tambah Data Tipe Barang</h4>
+                            <h4 class="modal-title" id="modal-itypes-title">Tambah Data Tipe Barang</h4>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">×</span>
                             </button>
                         </div>
                         <div class="modal-body">
                             <x-form.item-type-form action="item-types" />
-                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button id="create" type="button" class="btn btn-primary">Simpan</button>
+                            <button id="action" type="button" class="btn btn-primary">Simpan</button>
                         </div>
                     </div>
                 </div>
@@ -82,12 +81,40 @@
     @endpush
     @push('custom-scripts')
         <script>
-            $('#create').click(function (e) {
+            $('button[data-toggle="modal"]').click(function () {
+                $('#modal-itypes').on('show.bs.modal', function (e) {
+                    $('#itemtype').attr('value', '');
+                });
+            })
+
+            $('#action').click(function (e) {
                 $('form').submit()
             });
+
             $('#modal-itypes').on('hidden.bs.modal', function (e) {
                 $('#parsley-id-20').remove();
                 $('#itemtype').removeClass('parsley-error');
+                $('#itemtype').removeAttr('value');
+                $('input[name="_method"]').remove();
+                $('#modal-itypes-title').text('Tambah Data Tipe Barang')
+                $('form')
+                    .attr('action', "{{ url('item-types') }}")
+            });
+
+            $('a[type=button]').click(function (e) {
+                const self = $(this)
+                $('form')
+                    .attr('action', `{{ url('item-types') }}/${self.attr('data-id')}`)
+                    .append('<input type="hidden" name="_method" value="PUT">')
+
+                $('#modal-itypes-title').text('Edit Data Tipe Barang')
+                $('#modal-itypes').on('show.bs.modal', function (e) {
+                    $('#itemtype').attr('value', self.attr('data-value'));
+                });
+                $('#modal-itypes').modal('show')
+
+                e.preventDefault();
+                e.stopPropagation();
             })
         </script>
     @endpush
