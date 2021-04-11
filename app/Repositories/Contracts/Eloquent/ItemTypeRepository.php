@@ -9,6 +9,13 @@ use Illuminate\Database\Eloquent\Collection;
 interface ItemTypeRepository extends ItemTypeContract
 {
     /**
+     * Get all available item types only id and name
+     *
+     * @return Collection
+     */
+    public function exceptTimeStamps(): Collection;
+
+    /**
      * Get item types by user id's
      *
      * @param  int $userId

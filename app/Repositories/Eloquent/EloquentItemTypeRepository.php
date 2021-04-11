@@ -19,6 +19,17 @@ class EloquentItemTypeRepository extends BaseRepository implements ItemTypeRepos
         return ItemType::class;
     }
 
+
+    /**
+     * Get all available item types only id and name
+     *
+     * @return Collection
+     */
+    public function exceptTimeStamps(): Collection
+    {
+        return $this->entity->select('id', 'name')->get();
+    }
+
     /**
      * Storing new item types into database
      *

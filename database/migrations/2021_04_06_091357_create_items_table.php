@@ -17,8 +17,8 @@ class CreateItemsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('type_id');
             $table->unsignedBigInteger('added_by');
-            $table->string('name', 100);
             $table->string('brand', 30);
+            $table->text('description')->nullable();
             $table->integer('quantity');
             $table->timestamps();
             $table->softDeletes();
