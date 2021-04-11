@@ -7,19 +7,26 @@ use Illuminate\View\Component;
 class ItemForm extends Component
 {
     /**
+     * The collection of item types
+     *
+     * @var \Illuminate\Database\Eloquent\Collection
+     */
+    public $types;
+
+    /**
      * The item type id's
      *
-     * @var int
+     * @var int|null
      */
     public $type;
 
     /**
-     * The item name
+     * The item description
      *
      * @var string
      */
-    public $name;
-
+    
+    public $description;
     /**
      * The item brand
      *
@@ -30,7 +37,7 @@ class ItemForm extends Component
     /**
      * The total items that be added to the records
      *
-     * @var int
+     * @var int|null
      */
     public $quantity;
 
@@ -44,20 +51,27 @@ class ItemForm extends Component
     /**
      * Create a new component instance.
      *
-     * @return void
+     * @param array $types
+     * @param int|null $quantity
+     * @param int|null $type
+     * @param string $brand
+     * @param string $description
+     * @param boolean $isUpdate
      */
     public function __construct(
-        int $type,
-        string $name,
+        $types,
+        $quantity = null,
+        $type = null,
         string $brand,
-        int $quantity,
+        string $description,
         bool $isUpdate = false
     ) {
-        $this->type = $type;
-        $this->name = $name;
+        $this->type = (int) $type;
         $this->brand = $brand;
+        $this->description = $description;
         $this->quantity = $quantity;
         $this->isUpdate = $isUpdate;
+        $this->types = $types;
     }
 
     /**
