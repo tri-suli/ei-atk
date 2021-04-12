@@ -38,8 +38,8 @@
                                     <a onclick="handleEditCLick({{ $item->id }})" type="button" class="btn btn-round btn-warning">
                                         <i class="fa fa-edit"></i> Edit
                                     </a>
-                                    <a onclick="handleDeleteClick()" type="button" class="btn btn-round btn-danger">
-                                        <form id="form-delete" hidden action="{{ url("items/{$item->id}") }}" method="POST">
+                                    <a onclick="handleDeleteClick({{ $item->id }})" type="button" class="btn btn-round btn-danger">
+                                        <form id="form-delete-{{ $item->id }}" hidden action="{{ url("items/{$item->id}") }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                         </form>
@@ -81,7 +81,7 @@
                                     })
                             }) 
                         
-                        if (! $('input[name=_method]').get().length) {
+                        if (! $('input[value=PUT]').get().length) {
                             $form.append('<input type="hidden" name="_method" value="PUT">')
                             $btnCancel.attr('hidden', false)
                         }
@@ -89,11 +89,11 @@
                 });
             }
 
-            function handleDeleteClick () {
+            function handleDeleteClick (id) {
                 const decision = prompt('Apakah anda yakin akan menghapus data ini ?', 'ya atau tidak')
 
                 if (decision === 'ya') {
-                    $('#form-delete').submit()
+                    $('#form-delete-' + id).submit()
                 }
             }
 
@@ -102,7 +102,7 @@
             });
 
             $btnCancel.click(function () {
-                $('input[name=_method]').remove()
+                $('input[value=PUT]').remove()
                 $(this).attr('hidden', true)
                 $btnReset.trigger('click')
             });
